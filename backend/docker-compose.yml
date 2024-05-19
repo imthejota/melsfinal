@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db  # This line defines the volume
+
+volumes:
+  mongodb-data:  # This line defines the volume name (optional, but recommended for clarity)
