@@ -2,31 +2,25 @@ import product from "../database/models/product";
 
 export const allProducts = async (req, res) => {
   try {
-    const filters = {}; // Objeto para almacenar los filtros
+    const filters = {};
+    filters.enable = true;
 
-    // Filtrar por nombre (si existe el parámetro `name` en la consulta)
     if (req.query.name) {
       filters.name = { $regex: new RegExp(req.query.name, "i") };
     }
 
-    // Filtrar por categoría (si existe el parámetro `category` en la consulta)
     if (req.query.category) {
       filters.category = req.query.category;
     }
-
-    // Filtrar por precio mínimo (si existe el parámetro `minPrice` en la consulta)
     if (req.query.minPrice) {
       filters.price = { $gte: parseInt(req.query.minPrice) };
     }
-
-    // Filtrar por precio máximo (si existe el parámetro `maxPrice` en la consulta)
     if (req.query.maxPrice) {
       filters.price = { $lte: parseInt(req.query.maxPrice) };
     }
 
-    // Filtrar por disponibilidad (si existe el parámetro `enable` en la consulta)
     if (req.query.enable !== undefined) {
-      filters.enable = req.query.enable === "true"; // Convierte el string a boolean
+      filters.enable = req.query.enable === "false";
     }
 
     const products = await productroduct.find(filters);
