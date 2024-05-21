@@ -1,14 +1,17 @@
 import express from "express";
 import cors from "cors";
-import connect from "./database/connect";
-import routerProduct from "./routes/product";
+import connected from "./database/connect.js";
+import routerProduct from "./routes/product.js";
+import routerOrder from "./routes/order.js";
 
 const app = express();
-app.use(cors);
+const callback = () =>
+    console.log(`Server running on http://localhost:${app.get("port")}`);
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set("port", process.env.PORT || 3000);
-app.use(connect);
-const callback = () => `Server running on http://localhost:${app.get("port")}`;
+app.use(connected);
 app.use("/productos", routerProduct);
+app.use("/ordenes", routerOrder);
 app.listen(app.get("port"), callback);

@@ -1,4 +1,6 @@
 import { model } from "mongoose";
-import product from "../schemas/product";
+import product from "../schemas/product.js";
 
-export default model("product", product);
+const Product = model("Product", product);
+
+export default Product;
