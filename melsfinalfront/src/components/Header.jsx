@@ -12,7 +12,7 @@ const Header = () => {
         </Link>
       </nav>
       <form onSubmit={(e) => e.preventDefault()}>
-        <button type="button" onClick={() => navigate("/carrito")}>
+        <button type="button" onClick={() => navigate("/ordenes")}>
           <ShoppingCart />
         </button>
       </form>
