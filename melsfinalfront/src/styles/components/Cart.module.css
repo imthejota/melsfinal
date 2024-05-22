@@ -1,24 +1,28 @@
-.list {
+.options {
   display: flex;
   gap: 1rem;
   padding: 1rem;
 }
-.item {
-  list-style-type: none;
-  padding: 0.25rem 1rem;
+.options [type="radio"] {
+  display: none;
+}
+
+.option {
   border: 0.25rem solid teal;
   color: teal;
-  font-family: sans-serif;
+  text-align: center;
+  padding: 0.25rem 1rem;
   border-radius: 0.25rem;
   cursor: pointer;
+  font-family: sans-serif;
 }
-.active {
-  list-style-type: none;
+.options .active {
   border: 0.25rem solid transparent;
   background-color: teal;
   color: snow;
-  font-family: sans-serif;
+  text-align: center;
   padding: 0.25rem 1rem;
   border-radius: 0.25rem;
   cursor: pointer;
+  font-family: sans-serif;
 }
