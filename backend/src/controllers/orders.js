@@ -13,7 +13,7 @@ export const allOrders = async (req, res) => {
 // Crear una nueva orden
 export const createOrder = async (req, res) => {
     try {
-        const { customerName, products } = req.body;
+        const { customerName, products, totalAmount } = req.body;
 
         if (
             !customerName ||
@@ -44,7 +44,7 @@ export const createOrder = async (req, res) => {
             }
         }
 
-        const newOrder = new Order({ customerName, products });
+        const newOrder = new Order({ customerName, products, totalAmount });
         await newOrder.save();
         res.status(201).json(newOrder);
     } catch (error) {
