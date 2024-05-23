@@ -1,18 +1,21 @@
 import { useForm } from "react-hook-form";
 import useCart from "../context/useCart";
-import { useMemo } from "react";
 import Style from "../styles/components/Cart.module.css";
+import { useEffect, useState } from "react";
 const Cart = () => {
   const items = useCart((state) => state.items);
   const resetCart = useCart((state) => state.reset);
-  const subtotal = useMemo(
-    () =>
-      Array.from(items.values()).reduce(
-        (total, item) => total + item.product.price * item.quantity,
-        0
-      ),
-    [items]
-  );
+  const [subtotal, setSubtotal] = useState(0);
+
+  useEffect(() => {
+    if (items.size != 0) {
+      let values = Array.from(items?.values());
+      const reducer = (total, item) =>
+        total + item.product.price * item.quantity;
+      return setSubtotal(values.reduce(reducer, 0));
+    }
+  }, [items]);
+
   const {
     register,
     handleSubmit,
@@ -20,6 +23,7 @@ const Cart = () => {
     formState,
     reset: resetForm,
   } = useForm({
+    customerName: null,
     metodo: null,
     descuento: null,
   });
