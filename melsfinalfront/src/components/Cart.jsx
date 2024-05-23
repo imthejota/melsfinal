@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import Style from "../styles/components/Cart.module.css";
 const Cart = () => {
   const items = useCart((state) => state.items);
+  const resetCart = useCart((state) => state.reset);
   const subtotal = useMemo(
     () =>
       Array.from(items.values()).reduce(
@@ -12,7 +13,13 @@ const Cart = () => {
       ),
     [items]
   );
-  const { register, handleSubmit, watch, formState } = useForm({
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState,
+    reset: resetForm,
+  } = useForm({
     metodo: null,
     descuento: null,
   });
@@ -20,14 +27,64 @@ const Cart = () => {
   const method = watch("metodo");
   const discount = watch("descuento");
   const createOrder = async (data) => {
-    console.log("data", data);
-    console.log("items", items);
+    let order = {};
+    order.customerName = data.customerName;
+    order.products = Array.from(items.values());
+    order.products = order.products.map((item) => ({
+      product: item.product.id,
+      quantity: item.quantity,
+      price: item.product.price,
+    }));
+    order.totalAmount = parseFloat(subtotal.toFixed(2));
+    if (data.descuento) {
+      order.totalAmount = parseFloat(
+        Number(subtotal - subtotal * (discount / 100)).toFixed(2)
+      );
+    }
+    const endpoint = `${import.meta.env.VITE_BACKEND}/ordenes`;
+    const config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(order),
+    };
+    try {
+      const request = await fetch(endpoint, config);
+      if (request.ok) {
+        resetForm();
+        resetCart();
+      }
+    } catch (error) {
+      throw new Error(error.message);
+    }
   };
   return (
     <form onSubmit={handleSubmit(createOrder)}>
       <fieldset>
         <label htmlFor="subtotal">Subtotal</label>
         <output>${subtotal.toFixed(2)}</output>
+      </fieldset>
+      <fieldset>
+        <label htmlFor="customer">Cliente</label>
+        <input
+          type="text"
+          {...register("customerName", {
+            required: {
+              value: true,
+              message: "Completar los datos del cliente",
+            },
+            minLength: {
+              value: 4,
+              message: "Completar con el nombre completo del cliente",
+            },
+          })}
+        />
+        {errors?.customerName && (
+          <output className={Style.errors}>
+            {errors.customerName.message}
+          </output>
+        )}
       </fieldset>
       <fieldset className={Style.options}>
         <legend>Metodos de pago</legend>
@@ -77,6 +134,9 @@ const Cart = () => {
             required: { value: true, message: "Seleccione un metodo de pago" },
           })}
         />
+        {errors?.metodo && (
+          <output className={Style.errors}>{errors.metodo.message}</output>
+        )}
       </fieldset>
       {method && (method == "efectivo" || method == "transferencia") && (
         <fieldset>
@@ -84,13 +144,28 @@ const Cart = () => {
           <input
             id="descuento"
             placeholder="Descuento"
+            type="number"
+            min={0}
+            max={100}
+            step={5}
             {...register("descuento", {
               required: {
                 value: true,
                 message: "Ingrese el descuento",
               },
+              min: {
+                value: 0,
+                message: "El valor minimos es 0",
+              },
+              max: {
+                value: 100,
+                message: "El valor maximo es 100",
+              },
             })}
           />
+          {errors?.descuento && (
+            <output className={Style.errors}>{errors.descuento.message}</output>
+          )}
         </fieldset>
       )}
       <fieldset>
