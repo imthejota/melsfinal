@@ -8,12 +8,19 @@ const Cart = () => {
   const [subtotal, setSubtotal] = useState(0);
 
   useEffect(() => {
-    if (items.size != 0) {
-      let values = Array.from(items?.values);
+    const calculateSubtotal = () => {
+      if (items.size == 0 || items.size == undefined) {
+        setSubtotal(0);
+        return;
+      }
+
+      const values = Array.from(items.values());
       const reducer = (total, item) =>
         total + item.product.price * item.quantity;
-      return setSubtotal(values.reduce(reducer, 0));
-    }
+      setSubtotal(values.reduce(reducer, 0));
+    };
+
+    calculateSubtotal();
   }, [items]);
 
   const {
@@ -40,6 +47,7 @@ const Cart = () => {
       price: item.product.price,
     }));
     order.totalAmount = parseFloat(subtotal.toFixed(2));
+    order.paymentMethod = data.metodo;
     if (data.descuento) {
       order.totalAmount = parseFloat(
         Number(subtotal - subtotal * (discount / 100)).toFixed(2)

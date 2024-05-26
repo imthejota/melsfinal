@@ -6,7 +6,7 @@ const callback = (set, get) => ({
   items: new Map(),
   update: (product, quantity) => {
     set((state) => {
-      const draft = new Map(state.items);
+      const draft = state.items.size > 0 ? new Map(state.items) : new Map();
       const item = draft.get(product.id);
       if (item && quantity < 1) {
         draft.delete(item.product.id);
