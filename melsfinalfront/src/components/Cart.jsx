@@ -9,7 +9,7 @@ const Cart = () => {
 
   useEffect(() => {
     if (items.size != 0) {
-      let values = Array.from(items?.values());
+      let values = Array.from(items?.values);
       const reducer = (total, item) =>
         total + item.product.price * item.quantity;
       return setSubtotal(values.reduce(reducer, 0));
