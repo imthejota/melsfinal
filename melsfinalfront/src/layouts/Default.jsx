@@ -4,7 +4,7 @@ import Style from "../styles/Default.module.css";
 const Default = () => (
   <>
     <Header />
-    <main>
+    <main className={Style.page}>
       <Outlet />
     </main>
   </>

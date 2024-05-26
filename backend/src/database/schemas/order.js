@@ -15,7 +15,7 @@ const Order = new Schema({
   ],
   paymentMethod: { type: String },
   totalAmount: { type: Number, required: true },
-  status: { type: String, default: "Pending" }, // Ejemplo de campo adicional
+  status: { type: String, default: "pending" }, // Ejemplo de campo adicional
   orderDate: { type: Date, default: Date.now },
 });
 

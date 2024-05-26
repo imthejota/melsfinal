@@ -1,0 +1,28 @@
+:root {
+  --font: sans-serif;
+  --primary: teal;
+  --secondary: orange;
+  --gray_shadow: rgba(120, 120, 120, 0.4);
+  --ligth_shadow: rgba(240, 240, 240, 0.7);
+  --light: rgb(252, 252, 252);
+  --dark: rgb(16, 16, 16);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+  font-family: var(--font);
+}
+
+#root {
+  background-color: var(--dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

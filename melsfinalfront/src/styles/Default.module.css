@@ -1,0 +1,13 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--light);
+  box-shadow: 0 0 0.25rem 0 var(--ligth_shadow);
+  padding: 1rem;
+  border-radius: 1rem;
+  max-width: 1280px;
+  width: 75vw;
+  min-height: 75vh;
+  max-height: 768px;
+  gap: 1rem;
+}

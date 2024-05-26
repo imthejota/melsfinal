@@ -9,17 +9,20 @@ const Products = ({ products }) => {
   const items = useCart((state) => state.items);
   const update = useCart((state) => state.update);
   return (
-    <section>
+    <section className={Style.products}>
       <Categories />
-      <ul>
+      <ul className={Style.list}>
         {products.map(({ name, category, price, _id: id }) => {
           const cartItem = items.size > 0 ? items.get(id) : null;
           return (
-            <li key={id}>
+            <li key={id} className={Style.item}>
               <h3>{name}</h3>
               <p>{category}</p>
               <p>${price}</p>
-              <form onSubmit={(e) => e.preventDefault()}>
+              <form
+                onSubmit={(e) => e.preventDefault()}
+                className={Style.itemActions}
+              >
                 {!cartItem && (
                   <button
                     type="button"

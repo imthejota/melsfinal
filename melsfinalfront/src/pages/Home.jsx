@@ -1,9 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import Style from "../styles/pages/Home.module.css";
-import { useForm } from "react-hook-form";
 import Products from "../components/Products";
 import useCategory from "../context/useCategory";
-import useCart from "../context/useCart";
 import Cart from "../components/Cart";
 const Home = () => {
   const category = useCategory((state) => state.category);
@@ -12,6 +10,7 @@ const Home = () => {
     if (category != "all") {
       endpoint += `?category=${category}`;
     }
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     return await (await fetch(endpoint)).json();
   };
   const { isPending, isError, data, error } = useQuery({
@@ -21,11 +20,17 @@ const Home = () => {
 
   return (
     <>
-      <h1>Mel's</h1>
-      {isPending && <p>Cargando lista de productos...</p>}
-      {isError && <p>{error}</p>}
-      {!isPending && !isError && <Products products={data} />}
-      <Cart />
+      <h1 className={Style.title}>Mel's</h1>
+      {isPending && (
+        <p className={Style.loading}>Cargando lista de productos...</p>
+      )}
+      {isError && <p className={Style.error}>{error}</p>}
+      {!isPending && !isError && (
+        <section className={Style.content}>
+          <Products products={data} />
+          <Cart />
+        </section>
+      )}
     </>
   );
 };

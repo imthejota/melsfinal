@@ -51,10 +51,6 @@ export const updateOrder = async (req, res) => {
     const { id } = req.params;
     const { customerName, products } = req.body;
 
-    if (!customerName && (!products || !Array.isArray(products))) {
-      return res.status(400).json({ message: "Invalid update data" });
-    }
-
     if (products) {
       for (let item of products) {
         const { product, quantity, price } = item;

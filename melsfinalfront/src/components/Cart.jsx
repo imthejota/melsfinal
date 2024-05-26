@@ -72,7 +72,7 @@ const Cart = () => {
     }
   };
   return (
-    <form onSubmit={handleSubmit(createOrder)}>
+    <form onSubmit={handleSubmit(createOrder)} className={Style.cart}>
       <fieldset>
         <label htmlFor="subtotal">Subtotal</label>
         <output>${subtotal.toFixed(2)}</output>
