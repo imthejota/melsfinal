@@ -9,6 +9,7 @@ const Cart = () => {
 
   useEffect(() => {
     const calculateSubtotal = () => {
+      console.log("Entranding")
       if (items.size == 0 || items.size == undefined) {
         setSubtotal(0);
         return;
@@ -21,7 +22,7 @@ const Cart = () => {
     };
 
     calculateSubtotal();
-  }, [items]);
+  }, [items, resetCart]);
 
   const {
     register,
@@ -66,6 +67,7 @@ const Cart = () => {
       if (request.ok) {
         resetForm();
         resetCart();
+        setSubtotal(0)
       }
     } catch (error) {
       throw new Error(error.message);

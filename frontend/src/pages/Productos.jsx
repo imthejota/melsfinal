@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import List from "../components/List";
+import Create from "../components/Create"
 const Productos = () => {
   const fetchProductsList = async () => {
     let endpoint = `${import.meta.env.VITE_BACKEND}/productos`;
@@ -14,7 +15,11 @@ const Productos = () => {
   return (
     <>
       <h1>Productos</h1>
+      <section>
       <List products={data} />
+      <Create />
+      </section>
+
     </>
   );
 };
