@@ -3,7 +3,6 @@ import Product from "../database/models/product.js";
 export const allProducts = async (req, res) => {
   try {
     const filters = {};
-    filters.enable = true;
 
     if (req.query.name) {
       filters.name = { $regex: new RegExp(req.query.name, "i") };
@@ -20,7 +19,7 @@ export const allProducts = async (req, res) => {
     }
 
     if (req.query.enable !== undefined) {
-      filters.enable = req.query.enable === "false";
+      filters.enable = req.query.enable === "true";
     }
 
     const products = await Product.find(filters);

@@ -1,0 +1,70 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 100%;
+  gap: 1rem;
+  background-color: var(--gray_shadow);
+  border-radius: 1rem 1rem 0 0;
+}
+
+.item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background-color: var(--light);
+  border-radius: 2rem;
+  padding: 1rem;
+}
+
+.itemData {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+}
+
+.itemActions {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+}
+
+.itemActions button {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: var(--light);
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.itemEdit {
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+}
+.itemEdit fieldset {
+  display: flex;
+  flex-direction: column;
+}
+.itemEdit fieldset:last-child {
+  justify-content: center;
+  align-items: center;
+}
+.itemEdit fieldset:last-child button {
+  padding: 0.5rem 2rem;
+  background-color: var(--secondary);
+  color: var(--dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  cursor: pointer;
+}

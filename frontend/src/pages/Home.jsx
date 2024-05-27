@@ -6,11 +6,10 @@ import Cart from "../components/Cart";
 const Home = () => {
   const category = useCategory((state) => state.category);
   const fetchProductsList = async (category) => {
-    let endpoint = `${import.meta.env.VITE_BACKEND}/productos`;
+    let endpoint = `${import.meta.env.VITE_BACKEND}/productos?enable=true`;
     if (category != "all") {
-      endpoint += `?category=${category}`;
+      endpoint += `&&category=${category}`;
     }
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     return await (await fetch(endpoint)).json();
   };
   const { isPending, isError, data, error } = useQuery({

@@ -18,7 +18,7 @@ const Products = ({ products }) => {
             <li key={id} className={Style.item}>
               <h3>{name}</h3>
               <p>{category}</p>
-              <p>${price}</p>
+              <p>${price.toFixed(2)}</p>
               <form
                 onSubmit={(e) => e.preventDefault()}
                 className={Style.itemActions}

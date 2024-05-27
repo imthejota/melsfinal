@@ -1,4 +1,4 @@
-import { ShoppingCart, Home } from "lucide-react";
+import { ShoppingCart, Home, List } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Style from "../styles/components/Header.module.css";
 const Header = () => {
@@ -23,6 +23,15 @@ const Header = () => {
         onClick={() => navigate("/ordenes")}
       >
         <ShoppingCart />
+      </button>
+      <button
+        type="button"
+        className={`${Style.btnAction} ${
+          path == "/productos" ? Style.btnActionActive : ""
+        }`}
+        onClick={() => navigate("/productos")}
+      >
+        <List />
       </button>
     </form>
   );
