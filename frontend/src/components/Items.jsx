@@ -87,7 +87,7 @@ const Items = ({ orders = [] }) => {
       {list.length > 0 && (
         <ul className={Style.listOrders}>
           {list.map((order) => (
-            <li className={Style.listOrdersItem}>
+            <li key={order._id} className={Style.listOrdersItem}>
               <dl className={Style.listOrdersItemData}>
                 <dt>Cliente:</dt>
                 <dd>{order.customerName}</dd>
@@ -98,22 +98,28 @@ const Items = ({ orders = [] }) => {
                 <dt>Estado:</dt>
                 <dd>{order.status}</dd>
               </dl>
-              <form
-                className={Style.listOrdersItemActions}
-                onSubmit={(e) => e.preventDefault()}
-              >
-                <button type="button" onClick={() => completeOrder(order._id)}>
-                  <Check />
-                </button>
-                <button type="button" onClick={() => rejectOrder(order._id)}>
-                  <Ban />
-                </button>
-              </form>
+              {order.status == "pending" && (
+                <form
+                  className={Style.listOrdersItemActions}
+                  onSubmit={(e) => e.preventDefault()}
+                >
+                  <button
+                    type="button"
+                    onClick={() => completeOrder(order._id)}
+                  >
+                    <Check />
+                  </button>
+                  <button type="button" onClick={() => rejectOrder(order._id)}>
+                    <Ban />
+                  </button>
+                </form>
+              )}
+
               <details className={Style.listOrdersItemProducts}>
                 <summary>Productos</summary>
                 <ul className={Style.listOrdersItemList}>
                   {order.products.map(({ product, quantity, price }) => (
-                    <li>
+                    <li key={product._id}>
                       <p>{product.name}</p>
                       <dl>
                         <dt>Cantidad:</dt>

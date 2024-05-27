@@ -1,0 +1,56 @@
+.create {
+  width: calc(25% - 1rem);
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  background-color: var(--secondary);
+  position: -webkit-sticky;
+  position: sticky;
+  padding: 1rem;
+  border-radius: 1rem 1rem 0 0;
+  box-shadow: 0 0 0.25rem 0 var(--gray_shadow);
+  top: 0;
+  left: 0;
+  gap: 1rem;
+}
+
+.create fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1rem;
+}
+
+.create fieldset label,
+.create fieldset legend {
+  width: 100%;
+  font-weight: 400;
+  text-align: center;
+}
+
+.create fieldset output {
+  font-weight: 800;
+  text-align: center;
+  width: 100%;
+}
+
+.create fieldset input {
+  flex: 1;
+  padding: 0 1rem;
+  border: none;
+  outline: none;
+  height: 2rem;
+  text-align: center;
+}
+
+.create fieldset:last-child {
+  justify-content: center;
+}
+
+.create fieldset:last-child button {
+  padding: 0.25rem 1rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  border-radius: 2rem;
+}
