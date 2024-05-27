@@ -78,11 +78,12 @@ const List = ({ products = [] }) => {
       editForm.setValue("name", edit.name);
       editForm.setValue("category", edit.category);
       editForm.setValue("price", edit.price);
+      editForm.setValue("stock", edit.stock)
     }
   }, [edit]);
   return (
     <ul className={Style.list}>
-      {products.map(({ name, category, price, _id: id, enable }) => {
+      {products.map(({ name, category, price, stock, _id: id, enable }) => {
         const onEdit = edit != null && edit?.id == id;
         return (
           <li key={id} className={`${Style.item}`}>
@@ -90,9 +91,11 @@ const List = ({ products = [] }) => {
               <dl className={Style.itemData}>
                 <dt>Nombre</dt>
                 <dt>Categoria</dt>
+                <dt>Disponible</dt>
                 <dt>Precio</dt>
                 <dd>{name}</dd>
                 <dd>{category}</dd>
+                <dd>{stock}</dd>
                 <dd>${price.toFixed(2)}</dd>
               </dl>
             )}
@@ -143,6 +146,25 @@ const List = ({ products = [] }) => {
                   )}
                 </fieldset>
                 <fieldset>
+                <label htmlFor="stock">Disponible</label>
+                <input
+                    type="number"
+                    id="stock"
+                    min={0}
+                    step={1}
+                    {...register("stock", {
+                        required: {
+                            value: true,
+                            message: "El campo es obligatorio",
+                        },
+                        min: { value: 0, message: "Valor minimo 0" },
+                    })}
+                />
+                {errores && errores.stock && (
+                    <output>{errores.stock.message}</output>
+                )}
+            </fieldset>
+                <fieldset>
                   <label htmlFor="price">Precio</label>
                   <input
                     type="number"
@@ -177,7 +199,7 @@ const List = ({ products = [] }) => {
               {(edit == null || edit.id != id) && (
                 <button
                   type="button"
-                  onClick={() => setEdit({ id, name, category, price })}
+                  onClick={() => setEdit({ id, name, category, price, stock })}
                 >
                   <Pencil />
                 </button>

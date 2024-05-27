@@ -11,7 +11,7 @@ const Products = ({ products = [] }) => {
         <section className={Style.products}>
             <Categories />
             <ul className={Style.list}>
-                {products.map(({ name, category, price, _id: id }) => {
+                {products.map(({ name, category, stock, price, _id: id }) => {
                     const cartItem = items.size > 0 ? items.get(id) : null;
                     return (
                         <li key={id} className={Style.item}>
@@ -22,7 +22,7 @@ const Products = ({ products = [] }) => {
                                 onSubmit={(e) => e.preventDefault()}
                                 className={Style.itemActions}
                             >
-                                {!cartItem && (
+                                {!cartItem && stock > 0 && (
                                     <button
                                         type="button"
                                         onClick={() => update({ id, price }, 1)}
@@ -50,7 +50,7 @@ const Products = ({ products = [] }) => {
                                             onClick={() =>
                                                 update(
                                                     { id, price },
-                                                    cartItem.quantity + 1
+                                                    cartItem.quantity + 1 <= stock? cartItem.quantity + 1: cartItem.quantity
                                                 )
                                             }
                                         >
