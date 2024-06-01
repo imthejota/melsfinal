@@ -1,12 +1,33 @@
-version: "3.9"
+version: "3.11"
 
 services:
-  mongodb:
+  database:
     image: mongo:latest
     ports:
       - "27017:27017"
     volumes:
-      - mongodb-data:/data/db  # This line defines the volume
-
+      - mongo-data:/data/db
+  backend:
+    container_name: backend
+    restart: always
+    build: ./backend
+    environment:
+      MONGO_URI: mongodb://database:27017/market
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - frontend:/app
 volumes:
-  mongodb-data:  # This line defines the volume name (optional, but recommended for clarity)
+  mongo-data:
+    driver: local
+  frontend:
+    driver: local
