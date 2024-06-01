@@ -6,6 +6,8 @@ const Items = ({ orders = [] }) => {
   const navigate = useNavigate();
   const [status, setStatus] = useState("pending");
   const [list, setList] = useState(orders);
+  const [method, setMethod] = useState(null)
+
   const completeOrder = async (orderId) => {
     try {
       const endpoint = `${import.meta.env.VITE_BACKEND}/ordenes/${orderId}`;
@@ -46,9 +48,13 @@ const Items = ({ orders = [] }) => {
 
   useEffect(() => {
     let data = orders.filter((order) => order.status == status);
+    if (method != null){
+      data = data.filter((order) => order.paymentMethod == method);  
+    }
     setList(data);
-  }, [status]);
+  }, [status, method]);
 
+  
   return (
     <section className={Style.order}>
       <h2 className={Style.orderTitle}>Ordenes</h2>
@@ -80,6 +86,36 @@ const Items = ({ orders = [] }) => {
         >
           <Ban />
         </button>
+      </form>
+      <form onSubmit={(e) => e.preventDefault()} className={Style.filter}>
+        <button
+          type="button"
+          className={`${Style.btnMethod} ${
+            method === "efectivo" ? Style.btnMethodActive : ""
+          }`}
+          onClick={() => setMethod("efectivo")}
+        >
+          Efectivo
+        </button>
+        <button
+          type="button"
+          className={`${Style.btnMethod} ${
+            method === "mercadopago" ? Style.btnMethodActive : ""
+          }`}
+          onClick={() => setMethod("mercadopago")}
+        >
+          Mercado Pago
+        </button>
+        <button
+          type="button"
+          className={`${Style.btnMethod} ${
+            method === "transferencia" ? Style.btnMethodActive : ""
+          }`}
+          onClick={() => setMethod("transferencia")}
+        >
+          Transferencia
+        </button>
+        
       </form>
       {list.length == 0 && (
         <p className={Style.orderEmpty}>No hay ordenes en esta categoria</p>
