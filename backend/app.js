@@ -6,7 +6,7 @@ import routerOrder from "./routes/order.js";
 
 const app = express();
 const callback = () =>
-    console.log(`Server running on http://localhost:${app.get("port")}`);
+  console.log(`Server running on http://localhost:${app.get("port")}`);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
