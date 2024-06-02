@@ -22,7 +22,7 @@ Micro Seller es una aplicación web construida utilizando el stack MERN (MongoDB
 
 ## Funcionalidades
 
-- **_ABM de Productos_**: Control del invetario de los productos
+- **_ABM de Productos_**: Control del stock y precio de los productos
 - **_ABM de Compras_**: Control de ventas realizadas
 
 ## Instalación
@@ -44,7 +44,7 @@ Para instalar y ejecutar el proyecto, sigue estos pasos:
 3. **_Instalar Docker Desktop_**
    - [MacOS](https://docs.docker.com/desktop/install/mac-install/)
    - [Windows](https://docs.docker.com/desktop/install/windows-install/)
-4. **_Auntenticar al usuario_**
+4. **_Autenticar al usuario_**
 
    ```
    bash gh auth login
