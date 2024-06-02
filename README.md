@@ -22,8 +22,8 @@ Micro Seller es una aplicación web construida utilizando el stack MERN (MongoDB
 
 ## Funcionalidades
 
-- **_ABM de Productos_**: Control del stock y precio de los productos
-- **_ABM de Compras_**: Control de ventas realizadas
+- **_ABM de Productos_**: Control de existencias y precios de los productos.
+- **_ABM de Compras_**: Control de los pedidos diarios.
 
 ## Instalación
 
